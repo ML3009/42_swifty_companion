@@ -33,5 +33,5 @@ export type UserType = {
     alumnized_at?: string,
     alumni?: boolean,
     active?: boolean
-  }
+  };
 

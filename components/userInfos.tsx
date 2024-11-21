@@ -1,9 +1,10 @@
 import { View, Text, Image, ScrollView } from "react-native";
+import { UserType } from "../types/users"
 
-function UserInfos({ userData }: { userData: any[] }) {
+function UserInfos({ userData }: { userData: UserType[] }) {
     console.log("userData", userData);
 
-    if (!userData || userData.length === 0) {
+    if (!userData) {
         return <Text>No user data available</Text>;
     }
 
