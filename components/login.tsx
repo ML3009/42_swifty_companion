@@ -14,10 +14,8 @@ function Login() {
 
     const handleButtonLogin = async () => {
         console.log(login);
-        const UID = "blabla"
-        const SECRET = "blabla"
         try {
-            const data = await getAuthToken(UID, SECRET);
+            const data = await getAuthToken(process.env.UID, process.env.SECRET);
             setToken(data.access_token);
     
             const userData = await getUserData(login, data.access_token);

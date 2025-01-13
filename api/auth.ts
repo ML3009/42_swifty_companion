@@ -2,6 +2,8 @@ import { AccessType } from "../types/access"
 
 export const getAuthToken = async (UID: string, SECRET: string): Promise <AccessType> => {
     const authUrl = "https://api.intra.42.fr/oauth/token";
+    console.log("UID ", UID)
+    console.log("SECret", SECRET)
     const response = await fetch(authUrl, {
         method: 'POST',
         headers: {
