@@ -1,6 +1,6 @@
 declare namespace NodeJS {
     export interface ProcessEnv {  
-        UID: string;
-        SECRET: string;
+        EXPO_PUBLIC_UID: string;
+        EXPO_PUBLIC_SECRET: string;
     }
 }

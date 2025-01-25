@@ -1,9 +1,7 @@
 import { Text, View } from "react-native";
-import Cat from "@/components/cat";
-import InputComponent from "@/components/input";
 import Login from "@/components/login"
 
-export default function Index() {
+export default function Home() {
 	return (
 	<View
 		style={{
