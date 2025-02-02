@@ -1,5 +1,5 @@
 
-export type AccessType = {
+export type AccessType =  {
     access_token: string;
     token_type: string;
     expires_in: number;

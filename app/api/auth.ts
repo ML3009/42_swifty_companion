@@ -1,6 +1,11 @@
 import { AccessType } from "../types/access"
 
-export const getAuthToken = async (UID: string, SECRET: string): Promise <AccessType> => {
+let token: AccessType | null = null;
+
+export const getAuthToken = async (UID: string, SECRET: string): Promise <AccessType | null> => {
+    if (token) {
+        return token;
+    }
     const authUrl = "https://api.intra.42.fr/oauth/token";
     const response = await fetch(authUrl, {
         method: 'POST',
@@ -17,6 +22,6 @@ export const getAuthToken = async (UID: string, SECRET: string): Promise <Access
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
-
-    return response.json();
+    token = await response.json();
+    return token;
 }
