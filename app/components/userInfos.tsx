@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { UserType } from "../types/users"
+import { useRouter } from 'expo-router';
 
 function UserInfos({ userData }: { userData: UserType }) {
     const [selectedCursus, setSelectedCursus] = useState<number>(userData.cursus_users[0]?.cursus_id || 0);
@@ -12,8 +13,9 @@ function UserInfos({ userData }: { userData: UserType }) {
 
     const [showSkills, setShowSkills] = useState(false);
 
-
     const [expandedProjects, setExpandedProjects] = useState<{ [key: number]: boolean }>({});
+
+      const router = useRouter();
 
     useEffect(() => {
         const cursusData = userData.cursus_users.find(cursusUser => {
@@ -49,7 +51,6 @@ function UserInfos({ userData }: { userData: UserType }) {
         }
     };
 
-
     const IntegerformatLevel = (level: number) => {
         const integerPart = Math.floor(level);
         return `Niveau ${integerPart}`;
@@ -58,7 +59,6 @@ function UserInfos({ userData }: { userData: UserType }) {
     const DecimalformatLevel = (level: number) => { 
         const integerPart = Math.floor(level);
         const decimalPart = ((level - integerPart) * 100).toFixed();
-
         return decimalPart.toString();
     }
 
@@ -84,15 +84,19 @@ function UserInfos({ userData }: { userData: UserType }) {
                 <Text style={styles.text}> Wallet : {userData.wallet ? userData.wallet : '0'} </Text>
             </View>
             <View>
-            <Text style={styles.title}> Cursus: </Text>
+            <Text style={styles.titleCursus}> Cursus: </Text>
+            <View style={styles.containerPicker}>
                     <Picker
                     selectedValue={selectedCursus}
+                    style={styles.picker}
+                    itemStyle={styles.pickerItem}
                     onValueChange={(itemValue: number, itemIndex: number) => setSelectedCursus(Number(itemValue))}
                 >
                     {cursusOptions.map(option => (
                         <Picker.Item key={option.value} label={option.label} value={option.value} />
                     ))}
                 </Picker>
+                </View>
             </View>
             <View style={styles.section}>
                 <Text style={styles.title}>Cursus Information</Text>
@@ -127,7 +131,13 @@ function UserInfos({ userData }: { userData: UserType }) {
                         ))}
                     </>
                 )}
-    
+       <Text
+            onPress={() => {
+              router.push({ pathname: "/"});
+            }}
+          >
+            Go Home
+          </Text>
             </View>
         </ScrollView>
     )
@@ -137,14 +147,15 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         padding: 20,
-        backgroundColor: 'bisque',
+        backgroundColor: 'white',
     },
     header_container: {
         flex: 1,
+        borderWidth: 2,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'bisque',
+        backgroundColor: 'darkkhaki',
         borderRadius: 10,
         padding: 10,
         marginBottom: 20,
@@ -157,30 +168,55 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     top_container_text: {
-        marginLeft: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        borderColor: '#000',
-        borderWidth: 1,
+        backgroundColor: 'darkkhaki',
+        borderWidth: 2,
         padding: 5,
-        borderRadius: 5,
+        borderRadius: 10,
         marginBottom: 5,
         width: '100%',
     },
     section: {
         marginBottom: 20,
-        backgroundColor: '#E6E6FA',
+        backgroundColor: 'darkkhaki',
+        borderWidth: 2,
         padding: 10,
         borderRadius: 10,
     },
+    titleCursus: {
+        marginTop: 20,
+        fontSize: 24,
+        borderWidth: 2,
+        borderRadius: 10,
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor:'darkkhaki',
+    },
+    containerPicker: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    picker: {
+        height: 150,
+        width: 150,
+    },
+    pickerItem: {
+        color: 'darkkhaki',
+        fontWeight: 'bold',
+      },
     title: {
+        marginTop: 20,
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 10,
+        color: 'white',
+        backgroundColor:'darkkhaki',
     },
     text: {
         fontSize: 16,
-        color: '#333',
+        color: 'white',
         marginVertical: 2,
     },
     image: {

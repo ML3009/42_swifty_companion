@@ -9,19 +9,11 @@ export default function Details() {
   const params  = useLocalSearchParams();
   const paramsCheckArray = Array.isArray(params.userInfo) ? params.userInfo[0] : params.userInfo;
   const userData: UserType = JSON.parse(paramsCheckArray)
-  console.log( "user data", userData)
 
   return (
     <>
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <UserInfos userData={userData} />
-      <Text
-        onPress={() => {
-          router.push({ pathname: "/"});
-        }}
-      >
-        Go Home
-      </Text>
     </View>
     </>
   );
